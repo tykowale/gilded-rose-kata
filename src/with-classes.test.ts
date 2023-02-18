@@ -69,18 +69,21 @@ describe('Gilded Rose', () => {
       expect(gildedRose.daysRemaining).toEqual(-1);
       expect(gildedRose.quality).toEqual(50);
     });
+
     it('on sell date with max quality', () => {
       const gildedRose = new GildedRose(name, 0, 50);
       gildedRose.tick();
       expect(gildedRose.daysRemaining).toEqual(-1);
       expect(gildedRose.quality).toEqual(50);
     });
+
     it('after sell date', () => {
       const gildedRose = new GildedRose(name, -10, 10);
       gildedRose.tick();
       expect(gildedRose.daysRemaining).toEqual(-11);
       expect(gildedRose.quality).toEqual(12);
     });
+
     it('after sell date with max quality', () => {
       const gildedRose = new GildedRose(name, -10, 50);
       gildedRose.tick();
@@ -205,7 +208,7 @@ describe('Gilded Rose', () => {
     });
   });
 
-  describe.skip('Backstage passes to a TAFKAL80ETC concert', () => {
+  describe('Backstage passes to a TAFKAL80ETC concert', () => {
     beforeEach(() => {
       name = 'Conjured Mana Cake';
     });
