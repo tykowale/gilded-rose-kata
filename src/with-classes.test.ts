@@ -1,4 +1,4 @@
-import { GildedRose } from './index';
+import { GildedRose } from './with-classes';
 
 describe('Gilded Rose', () => {
   let name = '';
