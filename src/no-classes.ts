@@ -1,55 +1,53 @@
-export interface GildedRose {
+export function tick(item: { name: string; daysRemaining: number; quality: number }): {
   name: string;
   daysRemaining: number;
   quality: number;
-}
-
-export function tick(rose: GildedRose): GildedRose {
-  if (rose.name != 'Aged Brie' && rose.name != 'Backstage passes to a TAFKAL80ETC concert') {
-    if (rose.quality > 0) {
-      if (rose.name != 'Sulfuras, Hand of Ragnaros') {
-        rose.quality = rose.quality - 1;
+} {
+  if (item.name != 'Aged Brie' && item.name != 'Backstage passes to a TAFKAL80ETC concert') {
+    if (item.quality > 0) {
+      if (item.name != 'Sulfuras, Hand of Ragnaros') {
+        item.quality = item.quality - 1;
       }
     }
   } else {
-    if (rose.quality < 50) {
-      rose.quality = rose.quality + 1;
-      if (rose.name == 'Backstage passes to a TAFKAL80ETC concert') {
-        if (rose.daysRemaining < 11) {
-          if (rose.quality < 50) {
-            rose.quality = rose.quality + 1;
+    if (item.quality < 50) {
+      item.quality = item.quality + 1;
+      if (item.name == 'Backstage passes to a TAFKAL80ETC concert') {
+        if (item.daysRemaining < 11) {
+          if (item.quality < 50) {
+            item.quality = item.quality + 1;
           }
         }
-        if (rose.daysRemaining < 6) {
-          if (rose.quality < 50) {
-            rose.quality = rose.quality + 1;
+        if (item.daysRemaining < 6) {
+          if (item.quality < 50) {
+            item.quality = item.quality + 1;
           }
         }
       }
     }
   }
 
-  if (rose.name != 'Sulfuras, Hand of Ragnaros') {
-    rose.daysRemaining = rose.daysRemaining - 1;
+  if (item.name != 'Sulfuras, Hand of Ragnaros') {
+    item.daysRemaining = item.daysRemaining - 1;
   }
 
-  if (rose.daysRemaining < 0) {
-    if (rose.name != 'Aged Brie') {
-      if (rose.name != 'Backstage passes to a TAFKAL80ETC concert') {
-        if (rose.quality > 0) {
-          if (rose.name != 'Sulfuras, Hand of Ragnaros') {
-            rose.quality = rose.quality - 1;
+  if (item.daysRemaining < 0) {
+    if (item.name != 'Aged Brie') {
+      if (item.name != 'Backstage passes to a TAFKAL80ETC concert') {
+        if (item.quality > 0) {
+          if (item.name != 'Sulfuras, Hand of Ragnaros') {
+            item.quality = item.quality - 1;
           }
         }
       } else {
-        rose.quality = rose.quality - rose.quality;
+        item.quality = item.quality - item.quality;
       }
     } else {
-      if (rose.quality < 50) {
-        rose.quality = rose.quality + 1;
+      if (item.quality < 50) {
+        item.quality = item.quality + 1;
       }
     }
   }
 
-  return rose;
+  return item;
 }

@@ -1,4 +1,4 @@
-import { GildedRose, tick } from './no-classes';
+import { tick } from './no-classes';
 
 describe('Gilded Rose', () => {
   let name = '';
@@ -9,7 +9,7 @@ describe('Gilded Rose', () => {
     });
 
     it('before sell date', () => {
-      const gildedRose: GildedRose = { name, daysRemaining: 5, quality: 10 };
+      const gildedRose = { name, daysRemaining: 5, quality: 10 };
       const response = tick(gildedRose);
 
       expect(response.daysRemaining).toEqual(4);
@@ -17,7 +17,7 @@ describe('Gilded Rose', () => {
     });
 
     it('on sell date', () => {
-      const gildedRose: GildedRose = { name, daysRemaining: 0, quality: 10 };
+      const gildedRose = { name, daysRemaining: 0, quality: 10 };
       const response = tick(gildedRose);
 
       expect(response.daysRemaining).toEqual(-1);
@@ -25,7 +25,7 @@ describe('Gilded Rose', () => {
     });
 
     it('after sell date', () => {
-      const gildedRose: GildedRose = { name, daysRemaining: -10, quality: 10 };
+      const gildedRose = { name, daysRemaining: -10, quality: 10 };
       const response = tick(gildedRose);
 
       expect(response.daysRemaining).toEqual(-11);
@@ -33,7 +33,7 @@ describe('Gilded Rose', () => {
     });
 
     it('with no quality', () => {
-      const gildedRose: GildedRose = { name, daysRemaining: 5, quality: 0 };
+      const gildedRose = { name, daysRemaining: 5, quality: 0 };
       const response = tick(gildedRose);
 
       expect(response.daysRemaining).toEqual(4);
@@ -47,7 +47,7 @@ describe('Gilded Rose', () => {
     });
 
     it('before sell date', () => {
-      const gildedRose: GildedRose = { name, daysRemaining: 5, quality: 10 };
+      const gildedRose = { name, daysRemaining: 5, quality: 10 };
       const response = tick(gildedRose);
 
       expect(response.daysRemaining).toEqual(4);
@@ -55,7 +55,7 @@ describe('Gilded Rose', () => {
     });
 
     it('at max quality', () => {
-      const gildedRose: GildedRose = { name, daysRemaining: 5, quality: 50 };
+      const gildedRose = { name, daysRemaining: 5, quality: 50 };
       const response = tick(gildedRose);
 
       expect(response.daysRemaining).toEqual(4);
@@ -63,7 +63,7 @@ describe('Gilded Rose', () => {
     });
 
     it('on sell date', () => {
-      const gildedRose: GildedRose = { name, daysRemaining: 0, quality: 10 };
+      const gildedRose = { name, daysRemaining: 0, quality: 10 };
       const response = tick(gildedRose);
 
       expect(response.daysRemaining).toEqual(-1);
@@ -71,28 +71,28 @@ describe('Gilded Rose', () => {
     });
 
     it('on sell date near max quality', () => {
-      const gildedRose: GildedRose = { name, daysRemaining: 0, quality: 49 };
+      const gildedRose = { name, daysRemaining: 0, quality: 49 };
       const response = tick(gildedRose);
 
       expect(response.daysRemaining).toEqual(-1);
       expect(response.quality).toEqual(50);
     });
     it('on sell date with max quality', () => {
-      const gildedRose: GildedRose = { name, daysRemaining: 0, quality: 50 };
+      const gildedRose = { name, daysRemaining: 0, quality: 50 };
       const response = tick(gildedRose);
 
       expect(response.daysRemaining).toEqual(-1);
       expect(response.quality).toEqual(50);
     });
     it('after sell date', () => {
-      const gildedRose: GildedRose = { name, daysRemaining: -10, quality: 10 };
+      const gildedRose = { name, daysRemaining: -10, quality: 10 };
       const response = tick(gildedRose);
 
       expect(response.daysRemaining).toEqual(-11);
       expect(response.quality).toEqual(12);
     });
     it('after sell date with max quality', () => {
-      const gildedRose: GildedRose = { name, daysRemaining: -10, quality: 50 };
+      const gildedRose = { name, daysRemaining: -10, quality: 50 };
       const response = tick(gildedRose);
 
       expect(response.daysRemaining).toEqual(-11);
@@ -106,14 +106,14 @@ describe('Gilded Rose', () => {
     });
 
     it('before sell date', () => {
-      const gildedRose: GildedRose = { name, daysRemaining: 5, quality: 80 };
+      const gildedRose = { name, daysRemaining: 5, quality: 80 };
       const response = tick(gildedRose);
 
       expect(response.daysRemaining).toEqual(5);
       expect(response.quality).toEqual(80);
     });
     it('on sell date', () => {
-      const gildedRose: GildedRose = { name, daysRemaining: 0, quality: 80 };
+      const gildedRose = { name, daysRemaining: 0, quality: 80 };
       const response = tick(gildedRose);
 
       expect(response.daysRemaining).toEqual(0);
@@ -121,7 +121,7 @@ describe('Gilded Rose', () => {
     });
 
     it('after sell date', () => {
-      const gildedRose: GildedRose = { name, daysRemaining: -10, quality: 80 };
+      const gildedRose = { name, daysRemaining: -10, quality: 80 };
       const response = tick(gildedRose);
 
       expect(response.daysRemaining).toEqual(-10);
@@ -135,7 +135,7 @@ describe('Gilded Rose', () => {
     });
 
     it('long before sell date', () => {
-      const gildedRose: GildedRose = { name, daysRemaining: 11, quality: 10 };
+      const gildedRose = { name, daysRemaining: 11, quality: 10 };
       const response = tick(gildedRose);
 
       expect(response.daysRemaining).toEqual(10);
@@ -143,7 +143,7 @@ describe('Gilded Rose', () => {
     });
 
     it('long before sell date with max quality', () => {
-      const gildedRose: GildedRose = { name, daysRemaining: 11, quality: 50 };
+      const gildedRose = { name, daysRemaining: 11, quality: 50 };
       const response = tick(gildedRose);
 
       expect(response.daysRemaining).toEqual(10);
@@ -151,7 +151,7 @@ describe('Gilded Rose', () => {
     });
 
     it('medium close to sell date upper bound', () => {
-      const gildedRose: GildedRose = { name, daysRemaining: 10, quality: 10 };
+      const gildedRose = { name, daysRemaining: 10, quality: 10 };
       const response = tick(gildedRose);
 
       expect(response.daysRemaining).toEqual(9);
@@ -159,7 +159,7 @@ describe('Gilded Rose', () => {
     });
 
     it('medium close to sell date upper bound at max quality', () => {
-      const gildedRose: GildedRose = { name, daysRemaining: 10, quality: 50 };
+      const gildedRose = { name, daysRemaining: 10, quality: 50 };
       const response = tick(gildedRose);
 
       expect(response.daysRemaining).toEqual(9);
@@ -167,7 +167,7 @@ describe('Gilded Rose', () => {
     });
 
     it('medium close to sell date lower bound', () => {
-      const gildedRose: GildedRose = { name, daysRemaining: 6, quality: 10 };
+      const gildedRose = { name, daysRemaining: 6, quality: 10 };
       const response = tick(gildedRose);
 
       expect(response.daysRemaining).toEqual(5);
@@ -175,7 +175,7 @@ describe('Gilded Rose', () => {
     });
 
     it('medium close to sell date lower bound at max quality', () => {
-      const gildedRose: GildedRose = { name, daysRemaining: 6, quality: 50 };
+      const gildedRose = { name, daysRemaining: 6, quality: 50 };
       const response = tick(gildedRose);
 
       expect(response.daysRemaining).toEqual(5);
@@ -183,7 +183,7 @@ describe('Gilded Rose', () => {
     });
 
     it('very close to sell date upper bound', () => {
-      const gildedRose: GildedRose = { name, daysRemaining: 5, quality: 10 };
+      const gildedRose = { name, daysRemaining: 5, quality: 10 };
       const response = tick(gildedRose);
 
       expect(response.daysRemaining).toEqual(4);
@@ -191,7 +191,7 @@ describe('Gilded Rose', () => {
     });
 
     it('very close to sell date upper bound at max quality', () => {
-      const gildedRose: GildedRose = { name, daysRemaining: 5, quality: 50 };
+      const gildedRose = { name, daysRemaining: 5, quality: 50 };
       const response = tick(gildedRose);
 
       expect(response.daysRemaining).toEqual(4);
@@ -199,7 +199,7 @@ describe('Gilded Rose', () => {
     });
 
     it('very close to sell date lower bound', () => {
-      const gildedRose: GildedRose = { name, daysRemaining: 1, quality: 10 };
+      const gildedRose = { name, daysRemaining: 1, quality: 10 };
       const response = tick(gildedRose);
 
       expect(response.daysRemaining).toEqual(0);
@@ -207,7 +207,7 @@ describe('Gilded Rose', () => {
     });
 
     it('very close to sell date lower bound at max quality', () => {
-      const gildedRose: GildedRose = { name, daysRemaining: 1, quality: 50 };
+      const gildedRose = { name, daysRemaining: 1, quality: 50 };
       const response = tick(gildedRose);
 
       expect(response.daysRemaining).toEqual(0);
@@ -215,7 +215,7 @@ describe('Gilded Rose', () => {
     });
 
     it('on sell date', () => {
-      const gildedRose: GildedRose = { name, daysRemaining: 0, quality: 10 };
+      const gildedRose = { name, daysRemaining: 0, quality: 10 };
       const response = tick(gildedRose);
 
       expect(response.daysRemaining).toEqual(-1);
@@ -223,7 +223,7 @@ describe('Gilded Rose', () => {
     });
 
     it('after sell date', () => {
-      const gildedRose: GildedRose = { name, daysRemaining: -10, quality: 10 };
+      const gildedRose = { name, daysRemaining: -10, quality: 10 };
       const response = tick(gildedRose);
 
       expect(response.daysRemaining).toEqual(-11);
@@ -237,7 +237,7 @@ describe('Gilded Rose', () => {
     });
 
     it('before sell date', () => {
-      const gildedRose: GildedRose = { name, daysRemaining: 5, quality: 10 };
+      const gildedRose = { name, daysRemaining: 5, quality: 10 };
       const response = tick(gildedRose);
 
       expect(response.daysRemaining).toEqual(4);
@@ -245,7 +245,7 @@ describe('Gilded Rose', () => {
     });
 
     it('before sell date at zero quality', () => {
-      const gildedRose: GildedRose = { name, daysRemaining: 5, quality: 0 };
+      const gildedRose = { name, daysRemaining: 5, quality: 0 };
       const response = tick(gildedRose);
 
       expect(response.daysRemaining).toEqual(4);
@@ -253,7 +253,7 @@ describe('Gilded Rose', () => {
     });
 
     it('on sell date', () => {
-      const gildedRose: GildedRose = { name, daysRemaining: 0, quality: 10 };
+      const gildedRose = { name, daysRemaining: 0, quality: 10 };
       const response = tick(gildedRose);
 
       expect(response.daysRemaining).toEqual(-1);
@@ -261,7 +261,7 @@ describe('Gilded Rose', () => {
     });
 
     it('on sell date at zero quality', () => {
-      const gildedRose: GildedRose = { name, daysRemaining: 0, quality: 0 };
+      const gildedRose = { name, daysRemaining: 0, quality: 0 };
       const response = tick(gildedRose);
 
       expect(response.daysRemaining).toEqual(-1);
@@ -269,7 +269,7 @@ describe('Gilded Rose', () => {
     });
 
     it('after sell date', () => {
-      const gildedRose: GildedRose = { name, daysRemaining: -10, quality: 10 };
+      const gildedRose = { name, daysRemaining: -10, quality: 10 };
       const response = tick(gildedRose);
 
       expect(response.daysRemaining).toEqual(-11);
@@ -277,7 +277,7 @@ describe('Gilded Rose', () => {
     });
 
     it('after sell date at zero quality', () => {
-      const gildedRose: GildedRose = { name, daysRemaining: -10, quality: 0 };
+      const gildedRose = { name, daysRemaining: -10, quality: 0 };
       const response = tick(gildedRose);
 
       expect(response.daysRemaining).toEqual(-11);
