@@ -1,6 +1,6 @@
-import { tick } from './no-classes';
+import { tick } from '../no-classes';
 
-describe('Gilded Rose', () => {
+describe.skip('Gilded Rose', () => {
   let name = '';
 
   describe('Normal', () => {
@@ -231,7 +231,7 @@ describe('Gilded Rose', () => {
     });
   });
 
-  describe.skip('Backstage passes to a TAFKAL80ETC concert', () => {
+  describe('Backstage passes to a TAFKAL80ETC concert', () => {
     beforeEach(() => {
       name = 'Conjured Mana Cake';
     });

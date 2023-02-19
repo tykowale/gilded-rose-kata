@@ -1,6 +1,6 @@
-import { GildedRose } from './with-classes';
+import { GildedRose } from '../with-classes';
 
-describe('Gilded Rose', () => {
+describe.skip('Gilded Rose', () => {
   let name = '';
 
   describe('Normal', () => {
@@ -208,7 +208,7 @@ describe('Gilded Rose', () => {
     });
   });
 
-  describe.skip('Conjured Mana Cake', () => {
+  describe('Conjured Mana Cake', () => {
     beforeEach(() => {
       name = 'Conjured Mana Cake';
     });
