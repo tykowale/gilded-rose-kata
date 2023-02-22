@@ -42,9 +42,16 @@ class ItemHandler {
 // No overrides for the standard item
 class StandardItem extends ItemHandler {}
 
+// Everything Sulfuras is a noop. It's legendary
+class SulfurasItem extends ItemHandler {
+  dropQuality = () => null;
+  qualityControl = () => null;
+  passTime = () => null;
+}
+
 export function tick(item: Item): Item {
   // Legacy:
-  if (['Aged Brie', 'Backstage passes to a TAFKAL80ETC concert', 'Sulfuras, Hand of Ragnaros'].includes(item.name)) {
+  if (['Aged Brie', 'Backstage passes to a TAFKAL80ETC concert'].includes(item.name)) {
     if (item.name != 'Aged Brie' && item.name != 'Backstage passes to a TAFKAL80ETC concert') {
       if (item.quality > 0) {
         if (item.name != 'Sulfuras, Hand of Ragnaros') {
@@ -92,7 +99,12 @@ export function tick(item: Item): Item {
     }
     return item;
   } else {
-    const handler = new StandardItem(item);
+    let handler: ItemHandler;
+    if (item.name === 'Sulfuras, Hand of Ragnaros') {
+      handler = new SulfurasItem(item);
+    } else {
+      handler = new StandardItem(item);
+    }
     handler.passTime();
     handler.dropQuality();
     handler.qualityControl();
