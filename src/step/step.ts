@@ -27,6 +27,21 @@ function defaultPassTime(item: Item) {
   return item;
 }
 
+class ItemHandler {
+  private item: Item;
+  dropQuality: () => void = () => defaultDropQuality(this.item);
+  qualityControl: () => void = () => defaultQualityControl(this.item);
+  passTime: () => void = () => defaultPassTime(this.item);
+  getItem: () => Item = () => this.item;
+
+  constructor(item: Item) {
+    this.item = item;
+  }
+}
+
+// No overrides for the standard item
+class StandardItem extends ItemHandler {}
+
 export function tick(item: Item): Item {
   // Legacy:
   if (['Aged Brie', 'Backstage passes to a TAFKAL80ETC concert', 'Sulfuras, Hand of Ragnaros'].includes(item.name)) {
@@ -77,9 +92,10 @@ export function tick(item: Item): Item {
     }
     return item;
   } else {
-    defaultPassTime(item);
-    defaultDropQuality(item);
-    defaultQualityControl(item);
-    return item;
+    const handler = new StandardItem(item);
+    handler.passTime();
+    handler.dropQuality();
+    handler.qualityControl();
+    return handler.getItem();
   }
 }
