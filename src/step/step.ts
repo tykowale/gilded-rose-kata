@@ -7,37 +7,39 @@ type Item = {
 class ItemHandler {
   protected item: Item;
 
-  tick: () => void = () => {
+  tick(): void {
     this.passTime();
     this.updateQuality();
-  };
+  }
 
-  protected updateQuality: () => void = () => {
+  updateQuality(): void {
     this.adjustQuality();
     this.qualityControl();
-  };
+  }
 
-  protected adjustQuality: () => void = () => {
+  protected adjustQuality(): void {
     if (this.item.daysRemaining < 0) {
       this.item.quality -= 2;
     } else {
       this.item.quality -= 1;
     }
-  };
+  }
 
-  protected qualityControl: () => void = () => {
+  protected qualityControl(): void {
     if (this.item.quality < 0) {
       this.item.quality = 0;
     } else if (this.item.quality > 50) {
       this.item.quality = 50;
     }
-  };
+  }
 
-  protected passTime: () => void = () => {
+  protected passTime(): void {
     this.item.daysRemaining -= 1;
-  };
+  }
 
-  getItem: () => Item = () => this.item;
+  getItem(): Item {
+    return this.item;
+  }
 
   constructor(item: Item) {
     this.item = item;
@@ -55,17 +57,17 @@ class SulfurasItem extends ItemHandler {
 }
 
 class AgedBrieItem extends ItemHandler {
-  adjustQuality = () => {
+  adjustQuality(): void {
     if (this.item.daysRemaining < 0) {
       this.item.quality += 2;
     } else {
       this.item.quality += 1;
     }
-  };
+  }
 }
 
 class BackstagePassItem extends ItemHandler {
-  adjustQuality = () => {
+  adjustQuality(): void {
     if (this.item.daysRemaining < 0) {
       this.item.quality = 0;
     } else if (this.item.daysRemaining < 5) {
