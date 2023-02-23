@@ -7,7 +7,17 @@ type Item = {
 class ItemHandler {
   protected item: Item;
 
-  updateQuality: () => void = () => {
+  tick: () => void = () => {
+    this.passTime();
+    this.updateQuality();
+  };
+
+  protected updateQuality: () => void = () => {
+    this.adjustQuality();
+    this.qualityControl();
+  };
+
+  protected adjustQuality: () => void = () => {
     if (this.item.daysRemaining < 0) {
       this.item.quality -= 2;
     } else {
@@ -15,7 +25,7 @@ class ItemHandler {
     }
   };
 
-  qualityControl: () => void = () => {
+  protected qualityControl: () => void = () => {
     if (this.item.quality < 0) {
       this.item.quality = 0;
     } else if (this.item.quality > 50) {
@@ -23,7 +33,7 @@ class ItemHandler {
     }
   };
 
-  passTime: () => void = () => {
+  protected passTime: () => void = () => {
     this.item.daysRemaining -= 1;
   };
 
@@ -39,13 +49,13 @@ class StandardItem extends ItemHandler {}
 
 // Everything Sulfuras is a noop. It's legendary
 class SulfurasItem extends ItemHandler {
-  updateQuality = () => null;
+  adjustQuality = () => null;
   qualityControl = () => null;
   passTime = () => null;
 }
 
 class AgedBrieItem extends ItemHandler {
-  updateQuality = () => {
+  adjustQuality = () => {
     if (this.item.daysRemaining < 0) {
       this.item.quality += 2;
     } else {
@@ -55,7 +65,7 @@ class AgedBrieItem extends ItemHandler {
 }
 
 class BackstagePassItem extends ItemHandler {
-  updateQuality = () => {
+  adjustQuality = () => {
     if (this.item.daysRemaining < 0) {
       this.item.quality = 0;
     } else if (this.item.daysRemaining < 5) {
@@ -81,8 +91,6 @@ export function tick(item: Item): Item {
   const itemClass = itemConstructor.get(item.name) || StandardItem;
   const handler = new itemClass(item);
 
-  handler.passTime();
-  handler.updateQuality();
-  handler.qualityControl();
+  handler.tick();
   return handler.getItem();
 }
