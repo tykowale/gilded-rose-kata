@@ -4,34 +4,29 @@ type Item = {
   quality: number;
 };
 
-function defaultDropQuality(item: Item) {
-  if (item.daysRemaining < 0) {
-    item.quality -= 2;
-  } else {
-    item.quality -= 1;
-  }
-  return item;
-}
-
-function defaultQualityControl(item: Item) {
-  if (item.quality < 0) {
-    item.quality = 0;
-  } else if (item.quality > 50) {
-    item.quality = 50;
-  }
-  return item;
-}
-
-function defaultPassTime(item: Item) {
-  item.daysRemaining -= 1;
-  return item;
-}
-
 class ItemHandler {
   protected item: Item;
-  updateQuality: () => void = () => defaultDropQuality(this.item);
-  qualityControl: () => void = () => defaultQualityControl(this.item);
-  passTime: () => void = () => defaultPassTime(this.item);
+
+  updateQuality: () => void = () => {
+    if (this.item.daysRemaining < 0) {
+      this.item.quality -= 2;
+    } else {
+      this.item.quality -= 1;
+    }
+  };
+
+  qualityControl: () => void = () => {
+    if (this.item.quality < 0) {
+      this.item.quality = 0;
+    } else if (this.item.quality > 50) {
+      this.item.quality = 50;
+    }
+  };
+
+  passTime: () => void = () => {
+    this.item.daysRemaining -= 1;
+  };
+
   getItem: () => Item = () => this.item;
 
   constructor(item: Item) {
