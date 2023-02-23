@@ -74,62 +74,18 @@ class BackstagePassItem extends ItemHandler {
 }
 
 export function tick(item: Item): Item {
-  // Legacy (placeholder just for typechecking)
-  if (['placeholder'].includes(item.name)) {
-    if (item.name != 'Aged Brie' && item.name != 'Backstage passes to a TAFKAL80ETC concert') {
-      if (item.quality > 0) {
-        item.quality = item.quality - 1;
-      }
-    } else {
-      if (item.quality < 50) {
-        item.quality = item.quality + 1;
-        if (item.name == 'Backstage passes to a TAFKAL80ETC concert') {
-          if (item.daysRemaining < 11) {
-            if (item.quality < 50) {
-              item.quality = item.quality + 1;
-            }
-          }
-          if (item.daysRemaining < 6) {
-            if (item.quality < 50) {
-              item.quality = item.quality + 1;
-            }
-          }
-        }
-      }
-    }
-
-    item.daysRemaining = item.daysRemaining - 1;
-
-    if (item.daysRemaining < 0) {
-      if (item.name != 'Aged Brie') {
-        if (item.name != 'Backstage passes to a TAFKAL80ETC concert') {
-          if (item.quality > 0) {
-            item.quality = item.quality - 1;
-          }
-        } else {
-          item.quality = item.quality - item.quality;
-        }
-      } else {
-        if (item.quality < 50) {
-          item.quality = item.quality + 1;
-        }
-      }
-    }
-    return item;
+  let handler: ItemHandler;
+  if (item.name === 'Sulfuras, Hand of Ragnaros') {
+    handler = new SulfurasItem(item);
+  } else if (item.name === 'Aged Brie') {
+    handler = new AgedBrieItem(item);
+  } else if (item.name === 'Backstage passes to a TAFKAL80ETC concert') {
+    handler = new BackstagePassItem(item);
   } else {
-    let handler: ItemHandler;
-    if (item.name === 'Sulfuras, Hand of Ragnaros') {
-      handler = new SulfurasItem(item);
-    } else if (item.name === 'Aged Brie') {
-      handler = new AgedBrieItem(item);
-    } else if (item.name === 'Backstage passes to a TAFKAL80ETC concert') {
-      handler = new BackstagePassItem(item);
-    } else {
-      handler = new StandardItem(item);
-    }
-    handler.passTime();
-    handler.updateQuality();
-    handler.qualityControl();
-    return handler.getItem();
+    handler = new StandardItem(item);
   }
+  handler.passTime();
+  handler.updateQuality();
+  handler.qualityControl();
+  return handler.getItem();
 }
