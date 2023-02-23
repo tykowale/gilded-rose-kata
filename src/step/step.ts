@@ -28,7 +28,7 @@ function defaultPassTime(item: Item) {
 }
 
 class ItemHandler {
-  private item: Item;
+  protected item: Item;
   dropQuality: () => void = () => defaultDropQuality(this.item);
   qualityControl: () => void = () => defaultQualityControl(this.item);
   passTime: () => void = () => defaultPassTime(this.item);
@@ -49,9 +49,19 @@ class SulfurasItem extends ItemHandler {
   passTime = () => null;
 }
 
+class AgedBrieItem extends ItemHandler {
+  dropQuality = () => {
+    if (this.item.daysRemaining < 0) {
+      this.item.quality += 2;
+    } else {
+      this.item.quality += 1;
+    }
+  };
+}
+
 export function tick(item: Item): Item {
   // Legacy:
-  if (['Aged Brie', 'Backstage passes to a TAFKAL80ETC concert'].includes(item.name)) {
+  if (['Backstage passes to a TAFKAL80ETC concert'].includes(item.name)) {
     if (item.name != 'Aged Brie' && item.name != 'Backstage passes to a TAFKAL80ETC concert') {
       if (item.quality > 0) {
         item.quality = item.quality - 1;
@@ -96,6 +106,8 @@ export function tick(item: Item): Item {
     let handler: ItemHandler;
     if (item.name === 'Sulfuras, Hand of Ragnaros') {
       handler = new SulfurasItem(item);
+    } else if (item.name === 'Aged Brie') {
+      handler = new AgedBrieItem(item);
     } else {
       handler = new StandardItem(item);
     }
