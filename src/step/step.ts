@@ -77,7 +77,17 @@ class BackstagePassItem extends ItemHandler {
     } else {
       this.item.quality += 1;
     }
-  };
+  }
+}
+
+// Kind of hacky, but it does just pin it to the base item, as required.
+// It would be interesting to add cojured Brie or conjured Backstage Pass
+// and have it do _that_ item twice
+class ConjuredItem extends StandardItem {
+  adjustQuality(): void {
+    super.adjustQuality();
+    super.adjustQuality();
+  }
 }
 
 // It would be fun to do something fancier here with types, either by adding
@@ -86,7 +96,8 @@ class BackstagePassItem extends ItemHandler {
 const itemConstructor = new Map<string, typeof ItemHandler>([
   ['Aged Brie', AgedBrieItem],
   ['Backstage passes to a TAFKAL80ETC concert', BackstagePassItem],
-  ['Sulfuras, Hand of Ragnaros', SulfurasItem]
+  ['Sulfuras, Hand of Ragnaros', SulfurasItem],
+  ['Conjured Mana Bread', ConjuredItem]
 ]);
 
 export function tick(item: Item): Item {

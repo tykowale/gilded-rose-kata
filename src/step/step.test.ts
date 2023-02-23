@@ -79,4 +79,23 @@ describe('Gilded Rose', () => {
       expect(response.quality).toEqual(expectedQuality);
     });
   });
+
+  describe('Conjured Mana Bread on day change', () => {
+    const name = 'Conjured Mana Bread';
+
+    it.each`
+      desc                                       | daysRemaining | quality | expectedQuality
+      ${'reduces quality by 2 before sell date'} | ${5}          | ${10}   | ${8}
+      ${'reduces quality by 4 on sell date'}     | ${0}          | ${10}   | ${6}
+      ${'reduces quality by 4 after sell date'}  | ${-10}        | ${10}   | ${6}
+      ${'does not reduce quality below 0'}       | ${5}          | ${0}    | ${0}
+    `('$desc', ({ daysRemaining, quality, expectedQuality }) => {
+      const item = { name, daysRemaining, quality };
+      const response = tick(item);
+
+      expect(response.daysRemaining).toEqual(daysRemaining - 1);
+      expect(response.quality).toEqual(expectedQuality);
+    });
+  });
 });
+
