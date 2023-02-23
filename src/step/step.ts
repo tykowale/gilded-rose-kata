@@ -68,17 +68,19 @@ class BackstagePassItem extends ItemHandler {
   };
 }
 
+// It would be fun to do something fancier here with types, either by adding
+// a name to the Item class for enforcement/ensuring we're not missing one
+// or to autogenerate ths map. For now, this suffices.
+const itemConstructor = new Map<string, typeof ItemHandler>([
+  ['Aged Brie', AgedBrieItem],
+  ['Backstage passes to a TAFKAL80ETC concert', BackstagePassItem],
+  ['Sulfuras, Hand of Ragnaros', SulfurasItem]
+]);
+
 export function tick(item: Item): Item {
-  let handler: ItemHandler;
-  if (item.name === 'Sulfuras, Hand of Ragnaros') {
-    handler = new SulfurasItem(item);
-  } else if (item.name === 'Aged Brie') {
-    handler = new AgedBrieItem(item);
-  } else if (item.name === 'Backstage passes to a TAFKAL80ETC concert') {
-    handler = new BackstagePassItem(item);
-  } else {
-    handler = new StandardItem(item);
-  }
+  const itemClass = itemConstructor.get(item.name) || StandardItem;
+  const handler = new itemClass(item);
+
   handler.passTime();
   handler.updateQuality();
   handler.qualityControl();
